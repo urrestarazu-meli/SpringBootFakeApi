@@ -17,8 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class RouteController {
     @GetMapping("/ping")
-    public ResponseEntity<String> getTopItems() throws ApplicationException {
-
+    public ResponseEntity<String> ping() throws ApplicationException {
         log.info("Doing ping.");
 
         return ResponseEntity.ok("pong!");
