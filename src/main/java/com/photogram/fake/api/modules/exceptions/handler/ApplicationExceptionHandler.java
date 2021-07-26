@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+/*
+ Handle the exceptions globally
+ */
 @Slf4j
 @RestControllerAdvice
 public class ApplicationExceptionHandler {

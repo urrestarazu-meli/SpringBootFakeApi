@@ -29,14 +29,18 @@ public class PostsController {
     @Autowired
     private Gson gson;
 
-    /**
-     * @param postId
-     * @return
-     * @throws ApplicationException
+    /*
+    comment on a publication
+
+     * @param postId a post id
+     * @return id of the created post
+     * @throws ApplicationException a Application Exception
      */
     @PostMapping(value = "/post/{postId}/comment",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> createPostsComment(@PathVariable("postId") long postId) throws ApplicationException {
+    public ResponseEntity<String> createPostsComment(
+            @PathVariable("postId")
+                    long postId) throws ApplicationException {
         log.info("Create a comment for the post: " + postId);
 
         CreateCommentResponse response = CreateCommentResponse.builder()
@@ -46,14 +50,17 @@ public class PostsController {
         return ResponseEntity.ok(gson.toJson(response));
     }
 
-    /**
-     * @param postId
-     * @return
-     * @throws ApplicationException
+    /*
+    comments of a post
+     * @param postId a post id
+     * @return list of comments
+     * @throws ApplicationException a Application Exception
      */
     @GetMapping(value = "/post/{postId}/comments",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getPostsComment(@PathVariable("postId") long postId) throws ApplicationException {
+    public ResponseEntity<String> getPostsComment(
+            @PathVariable("postId")
+                    long postId) throws ApplicationException {
         log.info("Getting comments from the post: " + postId);
 
         GetCommentsResponse response = GetCommentsResponse.builder()

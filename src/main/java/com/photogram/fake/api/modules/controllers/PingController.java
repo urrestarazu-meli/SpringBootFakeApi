@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/photogram/api/v1")
 public class PingController {
-    /**
-     * @return
-     * @throws ApplicationException
+    /*
+    Method used to validate that the API is up
+
+     * @return pong message
+     * @throws ApplicationException a Application Exception
      */
     @GetMapping("/ping")
     public ResponseEntity<String> ping() throws ApplicationException {

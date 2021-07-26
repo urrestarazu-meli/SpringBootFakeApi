@@ -3,10 +3,9 @@ package com.photogram.fake.api.modules.services.impl;
 import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.repositories.CommentsRepository;
 import com.photogram.fake.api.modules.services.CommentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DefaultCommentService implements CommentService {

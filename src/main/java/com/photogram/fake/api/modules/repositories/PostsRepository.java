@@ -5,30 +5,30 @@ import com.google.gson.reflect.TypeToken;
 import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
+/*
+ Post's Repository
  */
 @Repository
-public class PostsCommentsRepository {
+public class PostsRepository {
     @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
     private Gson gson;
 
-    /**
-     *
-     * @param postId
-     * @return
-     * @throws RepositoryException
+    /*
+    Gets comments of a publication
+
+     * @param postId a post id
+     * @return the comments
+     * @throws RepositoryException a Repository Exception
      */
     public List<Comment> getComments(long postId) throws RepositoryException {
         try {

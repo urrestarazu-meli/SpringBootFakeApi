@@ -26,9 +26,11 @@ public class FanController {
     @Autowired
     private Gson gson;
 
-    /**
-     * @return
-     * @throws ApplicationException
+    /*
+    Gets my fans
+
+     * @return my fans
+     * @throws ApplicationException a application exception
      */
     @GetMapping(value = "/fan",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,10 +44,12 @@ public class FanController {
         return ResponseEntity.ok(gson.toJson(response));
     }
 
-    /**
-     * @param userId
-     * @return
-     * @throws ApplicationException
+    /*
+    Adds a fanatic
+
+     * @param userId user id to add to my fans
+     * @return user the added user
+     * @throws ApplicationException a application exception
      */
     @PutMapping("/fan/{userId}")
     public ResponseEntity<User> addFan(@PathVariable("userId") long userId) throws ApplicationException {
@@ -55,11 +59,11 @@ public class FanController {
         return ResponseEntity.ok(user);
     }
 
-    /**
-     * get posts from a fan
-     *
-     * @return
-     * @throws ApplicationException
+    /*
+     Gets posts from a fan
+
+     * @return publications of my fanatics
+     * @throws ApplicationException a application exception
      */
     @GetMapping(value = "/fan/{userId}/posts",
             produces = MediaType.APPLICATION_JSON_VALUE)

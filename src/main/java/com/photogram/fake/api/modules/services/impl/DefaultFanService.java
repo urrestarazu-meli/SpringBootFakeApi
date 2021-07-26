@@ -2,13 +2,14 @@ package com.photogram.fake.api.modules.services.impl;
 
 import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
+import com.photogram.fake.api.modules.exceptions.BusinessException;
 import com.photogram.fake.api.modules.repositories.FanRepository;
 import com.photogram.fake.api.modules.repositories.UsersRepository;
 import com.photogram.fake.api.modules.services.FanService;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DefaultFanService implements FanService {
@@ -32,11 +33,18 @@ public class DefaultFanService implements FanService {
         return fanRepository.get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Post> getPostsFan(long userId) {
 
-        User fan = fanRepository.get(userId);
+        Optional<User> fan = fanRepository.get(userId);
 
-        return usersRepository.getPosts(fan.getId());
+        if (!fan.isPresent()) {
+            throw new BusinessException("couldn't find the fan.");
+        }
+
+        return usersRepository.getPosts(fan.get().getId());
     }
 }

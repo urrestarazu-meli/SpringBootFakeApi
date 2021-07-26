@@ -6,16 +6,15 @@ import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
 import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
+/*
+ User's Repository
  */
 @Repository
 public class UsersRepository {
@@ -24,11 +23,12 @@ public class UsersRepository {
     @Autowired
     private Gson gson;
 
-    /**
-     *
-     * @param userId
-     * @return
-     * @throws RepositoryException
+    /*
+     Gets users
+
+     * @param userId a user id
+     * @return a user
+     * @throws RepositoryException a Repository Exception
      */
     public User get(long userId) throws RepositoryException {
         try {
@@ -42,11 +42,12 @@ public class UsersRepository {
         }
     }
 
-    /**
-     *
-     * @param userId
-     * @return
-     * @throws RepositoryException
+    /*
+    Gets posts from a fan
+
+     * @param userId a user id
+     * @return list of publications
+     * @throws RepositoryException a Repository Exception
      */
     public List<Post> getPosts(long userId) throws RepositoryException {
         try {

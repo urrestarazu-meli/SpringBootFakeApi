@@ -5,6 +5,9 @@ import com.google.gson.reflect.TypeToken;
 import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,12 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
+/*
+ Comment's repository
  */
 @Repository
 public class CommentsRepository {
@@ -28,11 +27,12 @@ public class CommentsRepository {
     @Autowired
     private Gson gson;
 
-    /**
-     *
-     * @param postId
-     * @return
-     * @throws RepositoryException
+    /*
+     Get comment's post
+
+     * @param postId a post id
+     * @return list of comments of a posts
+     * @throws RepositoryException a repository exception
      */
     public List<Comment> get(long postId) throws RepositoryException {
         try {
@@ -48,17 +48,18 @@ public class CommentsRepository {
         }
     }
 
-    /**
-     *
-     * @param postId
-     * @return
-     * @throws RepositoryException
+    /*
+     Creates a comment to a post
+
+     * @param postId a post id
+     * @return a new comment
+     * @throws RepositoryException a repository exception
      */
     public Comment create(long postId) throws RepositoryException {
         try {
             String url = "https://jsonplaceholder.typicode.com/comments";
 
-            //TODO : sacar de la sesion
+            //TODO : obtain from a session
             String requestJson = gson.toJson(Comment.builder()
                     .postId(postId)
                     .name("peter")
@@ -78,11 +79,12 @@ public class CommentsRepository {
         }
     }
 
-    /**
-     *
-     * @param comment
-     * @return
-     * @throws RepositoryException
+    /*
+    Modify a comment
+
+     * @param comment a modified comment
+     * @return the updated comment
+     * @throws RepositoryException a repository exception
      */
     public Comment update(Comment comment) throws RepositoryException {
         try {
@@ -100,9 +102,10 @@ public class CommentsRepository {
         }
     }
 
-    /**
-     *
-     * @param commentId
+    /*
+    Deletes a comment
+
+     * @param commentId comment id to delete
      * @throws RepositoryException
      */
     public void delete(long commentId) throws RepositoryException {

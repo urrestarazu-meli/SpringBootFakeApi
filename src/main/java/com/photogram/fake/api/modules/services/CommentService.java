@@ -1,10 +1,8 @@
 package com.photogram.fake.api.modules.services;
 
 import com.photogram.fake.api.modules.entities.domain.Comment;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
