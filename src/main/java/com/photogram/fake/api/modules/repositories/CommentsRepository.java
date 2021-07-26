@@ -2,11 +2,8 @@ package com.photogram.fake.api.modules.repositories;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.photogram.fake.api.modules.entities.ErrorCode;
 import com.photogram.fake.api.modules.entities.domain.Comment;
-import com.photogram.fake.api.modules.entities.domain.Post;
-import com.photogram.fake.api.modules.entities.domain.User;
-import com.photogram.fake.api.modules.exceptions.ApplicationException;
+import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -20,6 +17,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @Repository
 public class CommentsRepository {
     @Autowired
@@ -28,7 +28,13 @@ public class CommentsRepository {
     @Autowired
     private Gson gson;
 
-    public List<Comment> get(long postId) {
+    /**
+     *
+     * @param postId
+     * @return
+     * @throws RepositoryException
+     */
+    public List<Comment> get(long postId) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/posts/%d/comments", postId);
 
@@ -38,11 +44,17 @@ public class CommentsRepository {
             }.getType();
             return gson.fromJson(response.getBody(), commentListType);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't get comments", null);
+            throw new RepositoryException("couldn't get comments", exc);
         }
     }
 
-    public Comment create(long postId) {
+    /**
+     *
+     * @param postId
+     * @return
+     * @throws RepositoryException
+     */
+    public Comment create(long postId) throws RepositoryException {
         try {
             String url = "https://jsonplaceholder.typicode.com/comments";
 
@@ -62,11 +74,17 @@ public class CommentsRepository {
 
             return gson.fromJson(response, Comment.class);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't create a comment", null);
+            throw new RepositoryException("couldn't create a comment", exc);
         }
     }
 
-    public Comment update(Comment comment) {
+    /**
+     *
+     * @param comment
+     * @return
+     * @throws RepositoryException
+     */
+    public Comment update(Comment comment) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/comments/%d", comment.getId());
 
@@ -78,17 +96,22 @@ public class CommentsRepository {
 
             return comment;
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't update the comment", null);
+            throw new RepositoryException("couldn't update the comment", exc);
         }
     }
 
-    public void delete(long commentId) {
+    /**
+     *
+     * @param commentId
+     * @throws RepositoryException
+     */
+    public void delete(long commentId) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/comments/%d", commentId);
 
             restTemplate.delete(url);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't update the comment", null);
+            throw new RepositoryException("couldn't delete the comment", exc);
         }
     }
 }

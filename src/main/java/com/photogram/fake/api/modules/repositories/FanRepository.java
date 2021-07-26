@@ -8,18 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ */
 @Repository
 public class FanRepository {
     static List<User> fans = new ArrayList<>();
 
+    /**
+     *
+     * @param user
+     */
     public void add(User user) {
         fans.add(user);
     }
 
+    /**
+     *
+     * @return
+     */
     public List<User> get() {
         return fans;
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     public User get(long userId) {
         Optional<User> fan = fans.stream()
                 .filter(f -> f.getId().equals(userId))

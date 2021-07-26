@@ -2,10 +2,8 @@ package com.photogram.fake.api.modules.repositories;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.photogram.fake.api.modules.entities.ErrorCode;
 import com.photogram.fake.api.modules.entities.domain.Comment;
-import com.photogram.fake.api.modules.entities.domain.Post;
-import com.photogram.fake.api.modules.exceptions.ApplicationException;
+import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +13,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @Repository
 public class PostsCommentsRepository {
     @Autowired
@@ -23,7 +24,13 @@ public class PostsCommentsRepository {
     @Autowired
     private Gson gson;
 
-    public List<Comment> getComments(long postId) {
+    /**
+     *
+     * @param postId
+     * @return
+     * @throws RepositoryException
+     */
+    public List<Comment> getComments(long postId) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/posts/%d/comments", postId);
 
@@ -33,7 +40,7 @@ public class PostsCommentsRepository {
             }.getType();
             return gson.fromJson(response.getBody(), commentListType);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't get post comments", null);
+            throw new RepositoryException("couldn't get post's comments", null);
         }
     }
 }

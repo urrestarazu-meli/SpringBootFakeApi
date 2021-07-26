@@ -8,8 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
   DEFAULT_ERROR_CODE(HttpStatus.INTERNAL_SERVER_ERROR),
-  NO_SOLUTION_FOUND(HttpStatus.CONFLICT),
-  EXTERNAL_COMMUNICATION(HttpStatus.INTERNAL_SERVER_ERROR),
+  REPOSITORY_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR),
   BUSINESS_EXCEPTION(HttpStatus.I_AM_A_TEAPOT);
 
   private final HttpStatus httpStatus;

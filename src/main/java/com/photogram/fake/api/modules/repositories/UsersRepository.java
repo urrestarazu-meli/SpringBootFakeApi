@@ -2,10 +2,9 @@ package com.photogram.fake.api.modules.repositories;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.photogram.fake.api.modules.entities.ErrorCode;
 import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
-import com.photogram.fake.api.modules.exceptions.ApplicationException;
+import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @Repository
 public class UsersRepository {
     @Autowired
@@ -22,7 +24,13 @@ public class UsersRepository {
     @Autowired
     private Gson gson;
 
-    public User get(long userId) {
+    /**
+     *
+     * @param userId
+     * @return
+     * @throws RepositoryException
+     */
+    public User get(long userId) throws RepositoryException {
         try {
             String url = "https://jsonplaceholder.typicode.com/users/" + Long.toString(userId);
 
@@ -30,11 +38,17 @@ public class UsersRepository {
 
             return gson.fromJson(response.getBody(), User.class);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't add fan", null);
+            throw new RepositoryException("couldn't get the user", null);
         }
     }
 
-    public List<Post> getPosts(long userId) {
+    /**
+     *
+     * @param userId
+     * @return
+     * @throws RepositoryException
+     */
+    public List<Post> getPosts(long userId) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/users/%d/posts", userId);
 
@@ -42,9 +56,10 @@ public class UsersRepository {
 
             Type postListType = new TypeToken<ArrayList<Post>>() {
             }.getType();
+
             return gson.fromJson(response.getBody(), postListType);
         } catch (Exception exc) {
-            throw new ApplicationException(ErrorCode.NO_SOLUTION_FOUND, "couldn't get fan posts", null);
+            throw new RepositoryException("couldn't get user's posts", exc);
         }
     }
 }

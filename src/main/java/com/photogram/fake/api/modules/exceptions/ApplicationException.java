@@ -3,6 +3,9 @@ package com.photogram.fake.api.modules.exceptions;
 import com.photogram.fake.api.modules.entities.ErrorCode;
 import lombok.Getter;
 
+/**
+ *
+ */
 @Getter
 public class ApplicationException extends RuntimeException {
 
