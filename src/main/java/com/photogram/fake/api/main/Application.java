@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication(scanBasePackages = {"com.photogram.fake.api.modules"})
+@SpringBootApplication(scanBasePackages = {"com.photogram.fake.api.modules","com.photogram.fake.api.modules.usecase"})
 public class Application {
 
     public static void main(String[] args) {
