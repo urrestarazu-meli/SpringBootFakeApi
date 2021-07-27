@@ -1,0 +1,9 @@
+server:
+  application:
+    name: SpringBootFakeApi
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

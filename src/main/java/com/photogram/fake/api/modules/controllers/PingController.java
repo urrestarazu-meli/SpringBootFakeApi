@@ -1,25 +1,27 @@
-package com.photogram.fake.api.modules;
+package com.photogram.fake.api.modules.controllers;
 
-import lombok.AllArgsConstructor;
+import com.photogram.fake.api.modules.exceptions.ApplicationException;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.portable.ApplicationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-import java.util.Set;
-
 @Slf4j
 @RestController
 @RequestMapping("/photogram/api/v1")
-@AllArgsConstructor
-public class RouteController {
+public class PingController {
+    /*
+    Method used to validate that the API is up
+
+     * @return pong message
+     * @throws ApplicationException a Application Exception
+     */
     @GetMapping("/ping")
     public ResponseEntity<String> ping() throws ApplicationException {
         log.info("Doing ping.");
 
         return ResponseEntity.ok("pong!");
     }
+
 }
