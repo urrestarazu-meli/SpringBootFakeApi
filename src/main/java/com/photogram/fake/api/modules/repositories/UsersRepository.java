@@ -9,6 +9,7 @@ import com.photogram.fake.api.modules.stereotypes.Repository;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
  User's Repository
  */
 @Repository
+@AllArgsConstructor
 public class UsersRepository {
     @Autowired
     private RestTemplate restTemplate;
@@ -32,7 +34,7 @@ public class UsersRepository {
      */
     public User get(long userId) throws RepositoryException {
         try {
-            String url = "https://jsonplaceholder.typicode.com/users/" + Long.toString(userId);
+            String url = String.format("https://jsonplaceholder.typicode.com/users/%d", userId);
 
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 

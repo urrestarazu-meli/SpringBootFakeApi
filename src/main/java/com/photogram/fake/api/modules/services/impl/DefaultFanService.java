@@ -7,19 +7,21 @@ import com.photogram.fake.api.modules.usecase.AddFan;
 import com.photogram.fake.api.modules.usecase.GetMyFans;
 import com.photogram.fake.api.modules.usecase.GetsPostsFan;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class DefaultFanService implements FanService {
     @Autowired
-    GetMyFans getMyFans;
+    private GetMyFans getMyFans;
 
     @Autowired
     private GetsPostsFan getsPostsFan;
 
     @Autowired
-    AddFan addFan;
+    private AddFan addFan;
 
     public User add(long userId) {
         return addFan.add(AddFan.Model.builder()

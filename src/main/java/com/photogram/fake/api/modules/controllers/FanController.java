@@ -6,6 +6,7 @@ import com.photogram.fake.api.modules.entities.responses.GetFollowersResponse;
 import com.photogram.fake.api.modules.entities.responses.GetPostsResponse;
 import com.photogram.fake.api.modules.exceptions.ApplicationException;
 import com.photogram.fake.api.modules.services.FanService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@AllArgsConstructor
 @RequestMapping("/photogram/api/v1")
 public class FanController {
     @Autowired

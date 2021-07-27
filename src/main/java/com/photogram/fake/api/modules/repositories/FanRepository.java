@@ -5,13 +5,21 @@ import com.photogram.fake.api.modules.stereotypes.Repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /*
     Fans repository
  */
 @Repository
 public class FanRepository {
-    static List<User> fans = new ArrayList<>();
+    @Getter
+    private List<User> fans;
+
+    public FanRepository() {
+        this.fans = new ArrayList<>();
+    }
+
 
     /*
       Add a fan

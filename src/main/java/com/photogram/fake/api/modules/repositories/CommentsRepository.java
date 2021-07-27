@@ -8,6 +8,7 @@ import com.photogram.fake.api.modules.stereotypes.Repository;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
  Comment's repository
  */
 @Repository
+@AllArgsConstructor
 public class CommentsRepository {
     @Autowired
     private RestTemplate restTemplate;
@@ -37,7 +39,6 @@ public class CommentsRepository {
     public List<Comment> get(long postId) throws RepositoryException {
         try {
             String url = String.format("https://jsonplaceholder.typicode.com/posts/%d/comments", postId);
-
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
             Type commentListType = new TypeToken<ArrayList<Comment>>() {

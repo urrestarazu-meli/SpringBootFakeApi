@@ -8,10 +8,12 @@ import com.photogram.fake.api.modules.usecase.DeleteComment;
 import com.photogram.fake.api.modules.usecase.GetCommentsPost;
 import com.photogram.fake.api.modules.usecase.ModifyComment;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class DefaultCommentService implements CommentService {
     @Autowired
     CommentsRepository commentsRepository;
