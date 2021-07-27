@@ -9,9 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class User {
-    Long id;
-    String name;
-    String username;
-    String email;
+public class Post {
+    long userId;
+    long id;
+    String title;
+    String body;
 }
