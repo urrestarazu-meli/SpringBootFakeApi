@@ -9,9 +9,11 @@ import com.photogram.fake.api.modules.stereotypes.Usecase;
 import com.photogram.fake.api.modules.usecase.GetsPostsFan;
 import java.util.List;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Usecase
+@AllArgsConstructor
 public class DefaultGetsPostsFan implements GetsPostsFan {
     @Autowired
     private FanRepository fanRepository;

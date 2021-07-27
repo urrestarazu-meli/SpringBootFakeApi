@@ -12,6 +12,7 @@ import lombok.Getter;
     Fans repository
  */
 @Repository
+@AllArgsConstructor
 public class FanRepository {
     @Getter
     private List<User> fans;
@@ -19,7 +20,6 @@ public class FanRepository {
     public FanRepository() {
         this.fans = new ArrayList<>();
     }
-
 
     /*
       Add a fan
