@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,7 +25,6 @@ import org.springframework.web.client.RestTemplate;
 class CommentsRepositoryTest {
     private RestTemplate restTemplate = mock(RestTemplate.class);
     private Gson gson = new GsonBuilder().create();
-    private CircuitBreakerFactory circuitBreakerFactory= mock(CircuitBreakerFactory.class);
 
     @Test
     void get() {

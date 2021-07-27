@@ -1,4 +1,4 @@
-package com.photogram.fake.api;
+package com.photogram.fake.api.main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
