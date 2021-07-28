@@ -23,7 +23,8 @@ class PostsControllerTest {
 
     @Test
     void createPostsComment() {
-        when(commentService.add(999))
+        long postId = 999L;
+        when(commentService.add(any()))
                 .thenReturn(Comment.builder()
                         .body("body")
                         .email("email")
@@ -33,7 +34,7 @@ class PostsControllerTest {
                         .build());
 
         PostsController postsController = new PostsController(fanService, commentService, gson);
-        ResponseEntity<String> response = postsController.createPostsComment(999);
+        ResponseEntity<String> response = postsController.createPostsComment(postId, "token");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{\"commentId\":1}", response.getBody());
@@ -50,11 +51,11 @@ class PostsControllerTest {
                 .name("name")
                 .build();
 
-        when(commentService.get(postId))
+        when(commentService.get(any()))
                 .thenReturn(Collections.singletonList(comment));
 
         PostsController postsController = new PostsController(fanService, commentService, gson);
-        ResponseEntity<String> response = postsController.getPostsComment(postId);
+        ResponseEntity<String> response = postsController.getPostsComment(postId, "token");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{\"comments\":[{\"postId\":2,\"id\":1,\"name\":\"name\",\"email\":\"email\",\"body\":\"body\"}]}",
