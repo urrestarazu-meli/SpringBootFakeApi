@@ -15,5 +15,4 @@ public class Comment {
     String name;
     String email;
     String body;
-    String token;
 }

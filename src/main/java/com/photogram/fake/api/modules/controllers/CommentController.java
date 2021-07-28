@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +29,7 @@ public class CommentController {
     private Gson gson;
 
     /*
-    Delete a comment
+    Delete a commetn
 
      * @return empty json when it was deleted
      * @throws ApplicationException a exception
@@ -39,19 +38,10 @@ public class CommentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteComment(
             @PathVariable("commentId")
-                    long commentId,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+                    long commentId) throws ApplicationException {
         log.info("Delete a comment. commentId: " + commentId);
 
-        Comment comment = Comment.builder()
-                .id(commentId)
-                .build();
-
-        commentService.delete(CommentService.Model.builder()
-                .comment(comment)
-                .token(token)
-                .build());
+        commentService.delete(commentId);
 
         return ResponseEntity.ok("{}");
     }
@@ -69,26 +59,17 @@ public class CommentController {
             @PathVariable("commentId")
                     long commentId,
             @RequestBody
-                    Comment comment,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+                    Comment comment) throws ApplicationException {
         log.info("Update a comment. commentId: " + commentId);
         log.info("Body comment: " + comment.toString());
-        log.info("session-token: " + token);
-
-        Comment requestComment = Comment.builder()
-                .body(comment.getBody())
-                .email(comment.getEmail())
-                .name(comment.getName())
-                .postId(comment.getPostId())
-                .id(commentId)
-                .token(token)
-                .build();
 
         UpdateCommentResponse response = UpdateCommentResponse.builder()
-                .updated(commentService.update(CommentService.Model.builder()
-                        .comment(requestComment)
-                        .token(token)
+                .updated(commentService.update(Comment.builder()
+                        .body(comment.getBody())
+                        .email(comment.getEmail())
+                        .name(comment.getName())
+                        .postId(comment.getPostId())
+                        .id(commentId)
                         .build()))
                 .build();
 

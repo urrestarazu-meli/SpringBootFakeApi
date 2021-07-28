@@ -6,7 +6,6 @@ import com.photogram.fake.api.modules.services.FanService;
 import com.photogram.fake.api.modules.usecase.AddFan;
 import com.photogram.fake.api.modules.usecase.GetMyFans;
 import com.photogram.fake.api.modules.usecase.GetsPostsFan;
-import com.photogram.fake.api.modules.usecase.ValidateSession;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +23,14 @@ public class DefaultFanService implements FanService {
     @Autowired
     private AddFan addFan;
 
-    @Autowired
-    ValidateSession validateSession;
-
-    public User add(Model model) {
+    public User add(long userId) {
         return addFan.add(AddFan.Model.builder()
-                .userId(model.getUserId())
+                .userId(userId)
                 .build());
     }
 
     @Override
-    public List<User> get(Model model) {
-        validateSession(model);
-
+    public List<User> get() {
         return getMyFans.get();
     }
 
@@ -44,22 +38,9 @@ public class DefaultFanService implements FanService {
      * {@inheritDoc}
      */
     @Override
-    public List<Post> getPostsFan(Model model) {
-        validateSession(model);
-
+    public List<Post> getPostsFan(long userId) {
         return getsPostsFan.get(GetsPostsFan.Model.builder()
-                .userId(model.getUserId())
-                .build());
-    }
-
-    /*
-    Validates a user session
-
-     * @param model a dan service model
-     */
-    private void validateSession(Model model) {
-        validateSession.validate(ValidateSession.Model.builder()
-                .sessionToken(model.getToken())
+                .userId(userId)
                 .build());
     }
 }

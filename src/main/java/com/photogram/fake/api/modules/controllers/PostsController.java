@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +32,7 @@ public class PostsController {
     private Gson gson;
 
     /*
-    comment on a posts
+    comment on a publication
 
      * @param postId a post id
      * @return id of the created post
@@ -43,16 +42,11 @@ public class PostsController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createPostsComment(
             @PathVariable("postId")
-                    long postId,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+                    long postId) throws ApplicationException {
         log.info("Create a comment for the post: " + postId);
 
         CreateCommentResponse response = CreateCommentResponse.builder()
-                .commentId(commentService.add(CommentService.Model.builder()
-                        .postId(postId)
-                        .token(token)
-                        .build()).getId())
+                .commentId(commentService.add(postId).getId())
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));
@@ -68,16 +62,11 @@ public class PostsController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getPostsComment(
             @PathVariable("postId")
-                    long postId,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+                    long postId) throws ApplicationException {
         log.info("Getting comments from the post: " + postId);
 
         GetCommentsResponse response = GetCommentsResponse.builder()
-                .comments(commentService.get(CommentService.Model.builder()
-                        .postId(postId)
-                        .token(token)
-                        .build()))
+                .comments(commentService.get(postId))
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));

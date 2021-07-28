@@ -3,8 +3,6 @@ package com.photogram.fake.api.modules.services;
 import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
 import java.util.List;
-import lombok.Builder;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,26 +13,19 @@ public interface FanService {
      * @param userId user id to add
      * @return the user added
      */
-    User add(Model model);
+    User add(long userId);
 
     /*
      Get my fans
 
       * @return
       */
-    List<User> get(Model model);
+    List<User> get();
 
     /*
      Gets posts from a fan
      * @param userId a user id
      * @return the posts
      */
-    List<Post> getPostsFan(Model model);
-
-    @Builder
-    @Getter
-    class Model {
-        private final long userId;
-        private final String token;
-    }
+    List<Post> getPostsFan(long userId);
 }

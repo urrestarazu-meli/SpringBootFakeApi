@@ -22,7 +22,7 @@ class CommentControllerTest {
     void deleteComment() {
         CommentController commentController = new CommentController(commentService, gson);
 
-        ResponseEntity<String> response = commentController.deleteComment(999,"token");
+        ResponseEntity<String> response = commentController.deleteComment(999);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{}", response.getBody());
     }
@@ -35,7 +35,7 @@ class CommentControllerTest {
 
         CommentController commentController = new CommentController(commentService, gson);
 
-        ResponseEntity<String> response = commentController.updateComment(999, comment,"token");
+        ResponseEntity<String> response = commentController.updateComment(999, comment);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{\"updated\":{\"postId\":0,\"id\":0}}", response.getBody());

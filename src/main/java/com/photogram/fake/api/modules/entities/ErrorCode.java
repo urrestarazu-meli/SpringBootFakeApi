@@ -9,8 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
     DEFAULT_ERROR_CODE(HttpStatus.INTERNAL_SERVER_ERROR),
     REPOSITORY_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR),
-    BUSINESS_EXCEPTION(HttpStatus.I_AM_A_TEAPOT),
-    SESSION_EXCEPTION(HttpStatus.UNAUTHORIZED);
+    BUSINESS_EXCEPTION(HttpStatus.I_AM_A_TEAPOT);
 
     private final HttpStatus httpStatus;
 }
