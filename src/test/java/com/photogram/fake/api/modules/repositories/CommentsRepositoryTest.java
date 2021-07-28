@@ -59,7 +59,8 @@ class CommentsRepositoryTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<String> entity = new HttpEntity<>("{\"postId\":999,\"id\":0,\"name\":\"peter\",\"email\":\"peter@email.com\",\"body\":\"some comment\"}", headers);
+        HttpEntity<String> entity = new HttpEntity<>("{\"postId\":999,\"id\":0,\"name\":\"peter\",\"email\":\"peter@email.com\",\"body\":\"Hello!\"}", headers);
+
         when(restTemplate.postForObject("https://jsonplaceholder.typicode.com/comments", entity, String.class))
                 .thenReturn("{\n" +
                         "  \"postId\": 1,\n" +
@@ -70,7 +71,7 @@ class CommentsRepositoryTest {
                         "}");
 
         CommentsRepository commentsRepository = new CommentsRepository(restTemplate, gson);
-        Comment comment = commentsRepository.create(999);
+        Comment comment = commentsRepository.create(999, "Hello!");
 
         assertEquals(501, comment.getId());
     }

@@ -13,5 +13,7 @@ public interface CreateCommentPost {
     @Getter
     class Model {
         private final long postId;
+        private final String token;
+        private final String newComment;
     }
 }

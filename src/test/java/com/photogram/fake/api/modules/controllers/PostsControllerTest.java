@@ -34,7 +34,7 @@ class PostsControllerTest {
                         .build());
 
         PostsController postsController = new PostsController(fanService, commentService, gson);
-        ResponseEntity<String> response = postsController.createPostsComment(postId, "token");
+        ResponseEntity<String> response = postsController.createPostsComment(postId, "hello!", "token");
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{\"commentId\":1}", response.getBody());
