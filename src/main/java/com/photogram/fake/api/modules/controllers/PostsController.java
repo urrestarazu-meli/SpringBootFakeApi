@@ -1,6 +1,7 @@
 package com.photogram.fake.api.modules.controllers;
 
 import com.google.gson.Gson;
+import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.entities.responses.CreateCommentResponse;
 import com.photogram.fake.api.modules.entities.responses.GetCommentsResponse;
 import com.photogram.fake.api.modules.exceptions.ApplicationException;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +35,7 @@ public class PostsController {
     private Gson gson;
 
     /*
-    comment on a publication
+    comment on a posts
 
      * @param postId a post id
      * @return id of the created post
@@ -42,18 +45,27 @@ public class PostsController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> createPostsComment(
             @PathVariable("postId")
-                    long postId) throws ApplicationException {
+                    long postId,
+            @RequestBody
+                    String comment,
+            @RequestHeader("session-token")
+                    String token) throws ApplicationException {
         log.info("Create a comment for the post: " + postId);
 
         CreateCommentResponse response = CreateCommentResponse.builder()
-                .commentId(commentService.add(postId).getId())
+                .commentId(commentService.add(CommentService.Model.builder()
+                        .postId(postId)
+                        .newComment(comment)
+                        .token(token)
+                        .build()).getId())
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));
     }
 
     /*
-    comments of a post
+    List all comments of a post
+
      * @param postId a post id
      * @return list of comments
      * @throws ApplicationException a Application Exception
@@ -62,11 +74,16 @@ public class PostsController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getPostsComment(
             @PathVariable("postId")
-                    long postId) throws ApplicationException {
+                    long postId,
+            @RequestHeader("session-token")
+                    String token) throws ApplicationException {
         log.info("Getting comments from the post: " + postId);
 
         GetCommentsResponse response = GetCommentsResponse.builder()
-                .comments(commentService.get(postId))
+                .comments(commentService.get(CommentService.Model.builder()
+                        .postId(postId)
+                        .token(token)
+                        .build()))
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));

@@ -7,10 +7,12 @@ import static org.mockito.Mockito.when;
 
 import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.repositories.CommentsRepository;
+import com.photogram.fake.api.modules.services.CommentService;
 import com.photogram.fake.api.modules.usecase.CreateCommentPost;
 import com.photogram.fake.api.modules.usecase.DeleteComment;
 import com.photogram.fake.api.modules.usecase.GetCommentsPost;
 import com.photogram.fake.api.modules.usecase.ModifyComment;
+import com.photogram.fake.api.modules.usecase.ValidateSession;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +25,7 @@ class DefaultCommentServiceTest {
     private GetCommentsPost getCommentsPost = mock(GetCommentsPost.class);
     private ModifyComment modifyComment = mock(ModifyComment.class);
     private DeleteComment deleteComment = mock(DeleteComment.class);
+    private ValidateSession validateSession = mock(ValidateSession.class);
 
     @Test
     void add() {
@@ -38,9 +41,12 @@ class DefaultCommentServiceTest {
                 createCommentPost,
                 getCommentsPost,
                 modifyComment,
-                deleteComment);
+                deleteComment,
+                validateSession);
 
-        Comment result = commentService.add(postId);
+        Comment result = commentService.add(CommentService.Model.builder()
+                .postId(postId)
+                .build());
 
         assertEquals(comment, result);
     }
@@ -59,9 +65,12 @@ class DefaultCommentServiceTest {
                 createCommentPost,
                 getCommentsPost,
                 modifyComment,
-                deleteComment);
+                deleteComment,
+                validateSession);
 
-        List<Comment> result = commentService.get(postId);
+        List<Comment> result = commentService.get(CommentService.Model.builder()
+                .postId(postId)
+                .build());
         assertEquals(Collections.singletonList(comment), result);
     }
 
@@ -80,9 +89,12 @@ class DefaultCommentServiceTest {
                 createCommentPost,
                 getCommentsPost,
                 modifyComment,
-                deleteComment);
+                deleteComment,
+                validateSession);
 
-        Comment result = commentService.update(comment);
+        Comment result = commentService.update(CommentService.Model.builder()
+                .comment(comment)
+                .build());
 
         assertEquals(comment, result);
     }
@@ -90,13 +102,19 @@ class DefaultCommentServiceTest {
     @Test
     void delete() {
         Long commentId = 999L;
+        Comment comment = Comment.builder()
+                .id(commentId)
+                .build();
 
         DefaultCommentService commentService = new DefaultCommentService(commentsRepository,
                 createCommentPost,
                 getCommentsPost,
                 modifyComment,
-                deleteComment);
+                deleteComment,
+                validateSession);
 
-        commentService.delete(commentId);
+        commentService.delete(CommentService.Model.builder()
+                .comment(comment)
+                .build());
     }
 }
