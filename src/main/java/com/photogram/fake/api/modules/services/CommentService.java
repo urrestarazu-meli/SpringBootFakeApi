@@ -49,5 +49,6 @@ public interface CommentService {
         private final long postId;
         private final Comment comment;
         private final String token;
+        private final String newComment;
     }
 }

@@ -54,18 +54,19 @@ public class CommentsRepository {
 
      * @param postId a post id
      * @return a new comment
+     * @comment a comment
      * @throws RepositoryException a repository exception
      */
-    public Comment create(long postId) throws RepositoryException {
+    public Comment create(long postId, String comment) throws RepositoryException {
         try {
             String url = "https://jsonplaceholder.typicode.com/comments";
 
-            //TODO : obtain from a session
+
             String requestJson = gson.toJson(Comment.builder()
                     .postId(postId)
                     .name("peter")
                     .email("peter@email.com")
-                    .body("some comment")
+                    .body(comment)
                     .build());
 
             HttpHeaders headers = new HttpHeaders();

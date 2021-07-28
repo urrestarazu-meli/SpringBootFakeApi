@@ -43,6 +43,8 @@ public class DefaultCommentService implements CommentService {
 
         return createCommentPost.create(CreateCommentPost.Model.builder()
                 .postId(model.getPostId())
+                .newComment(model.getNewComment())
+                .token(model.getToken())
                 .build());
     }
 
