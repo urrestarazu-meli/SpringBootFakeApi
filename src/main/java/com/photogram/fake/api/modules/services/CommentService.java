@@ -2,15 +2,44 @@ package com.photogram.fake.api.modules.services;
 
 import com.photogram.fake.api.modules.entities.domain.Comment;
 import java.util.List;
+import lombok.Builder;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
-    Comment add(long postId);
+    /**
+     *
+     * @param model
+     * @return
+     */
+    Comment add(Model model);
 
-    List<Comment> get(long postId);
+    /**
+     *
+     * @param model
+     * @return
+     */
+    List<Comment> get(Model model);
 
-    Comment update(Comment comment);
+    /**
+     *
+     * @param model
+     * @return
+     */
+    Comment update(Model model);
 
-    void delete(long commentId);
+    /**
+     *
+     * @param model
+     */
+    void delete(Model model);
+
+    @Builder
+    @Getter
+    class Model {
+        private final long postId;
+        private final Comment comment;
+        private final String token;
+    }
 }
