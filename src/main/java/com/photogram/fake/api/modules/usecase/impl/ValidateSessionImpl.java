@@ -1,6 +1,5 @@
 package com.photogram.fake.api.modules.usecase.impl;
 
-import com.photogram.fake.api.modules.exceptions.BusinessException;
 import com.photogram.fake.api.modules.exceptions.SessionException;
 import com.photogram.fake.api.modules.repositories.SessionRepository;
 import com.photogram.fake.api.modules.stereotypes.Usecase;

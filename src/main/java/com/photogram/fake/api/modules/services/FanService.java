@@ -1,6 +1,5 @@
 package com.photogram.fake.api.modules.services;
 
-import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
 import java.util.List;

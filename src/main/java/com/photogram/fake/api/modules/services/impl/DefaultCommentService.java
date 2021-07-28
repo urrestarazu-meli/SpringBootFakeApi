@@ -1,8 +1,6 @@
 package com.photogram.fake.api.modules.services.impl;
 
 import com.photogram.fake.api.modules.entities.domain.Comment;
-import com.photogram.fake.api.modules.exceptions.BusinessException;
-import com.photogram.fake.api.modules.exceptions.SessionException;
 import com.photogram.fake.api.modules.repositories.CommentsRepository;
 import com.photogram.fake.api.modules.services.CommentService;
 import com.photogram.fake.api.modules.usecase.CreateCommentPost;
@@ -75,8 +73,10 @@ public class DefaultCommentService implements CommentService {
                 .build());
     }
 
-    /**
-     * @param model
+    /*
+    Validate a user's session
+
+     * @param model a comment service model
      */
     private void validateSession(Model model) {
         validateSession.validate(ValidateSession.Model.builder()

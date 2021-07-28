@@ -8,33 +8,41 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
-    /**
+    /*
+    Create a comment
      *
-     * @param model
+     * @param model a Comment Service model
      * @return
      */
     Comment add(Model model);
 
-    /**
+    /*
+    Gets post's comments
      *
-     * @param model
+     * @param model a Comment Service model
      * @return
      */
     List<Comment> get(Model model);
 
-    /**
-     *
-     * @param model
+    /*
+    Modify a comment
+
+     * @param model  a Comment Service model
      * @return
      */
     Comment update(Model model);
 
-    /**
+    /*
+    Delete a comment
+
      *
-     * @param model
+     * @param model  a Comment Service model
      */
     void delete(Model model);
 
+    /*
+     Comment Service model
+     */
     @Builder
     @Getter
     class Model {

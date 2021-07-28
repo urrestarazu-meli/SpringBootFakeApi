@@ -1,6 +1,5 @@
 package com.photogram.fake.api.modules.usecase;
 
-import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.stereotypes.Usecase;
 import lombok.Builder;
 import lombok.Getter;

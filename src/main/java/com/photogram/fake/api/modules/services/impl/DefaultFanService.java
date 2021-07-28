@@ -2,7 +2,6 @@ package com.photogram.fake.api.modules.services.impl;
 
 import com.photogram.fake.api.modules.entities.domain.Post;
 import com.photogram.fake.api.modules.entities.domain.User;
-import com.photogram.fake.api.modules.services.CommentService;
 import com.photogram.fake.api.modules.services.FanService;
 import com.photogram.fake.api.modules.usecase.AddFan;
 import com.photogram.fake.api.modules.usecase.GetMyFans;
@@ -53,8 +52,10 @@ public class DefaultFanService implements FanService {
                 .build());
     }
 
-    /**
-     * @param model
+    /*
+    Validates a user session
+
+     * @param model a dan service model
      */
     private void validateSession(Model model) {
         validateSession.validate(ValidateSession.Model.builder()
