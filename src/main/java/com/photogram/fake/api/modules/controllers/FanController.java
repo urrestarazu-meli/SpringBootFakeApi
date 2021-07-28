@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,15 +36,11 @@ public class FanController {
      */
     @GetMapping(value = "/fan",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getFans(
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+    public ResponseEntity<String> getFans() throws ApplicationException {
         log.info("Get all fans");
 
         GetFollowersResponse response = GetFollowersResponse.builder()
-                .following(fanService.get(FanService.Model.builder()
-                        .token(token)
-                        .build()))
+                .following(fanService.get())
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));
@@ -59,16 +54,9 @@ public class FanController {
      * @throws ApplicationException a application exception
      */
     @PutMapping("/fan/{userId}")
-    public ResponseEntity<User> addFan(
-            @PathVariable("userId")
-                    long userId,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+    public ResponseEntity<User> addFan(@PathVariable("userId") long userId) throws ApplicationException {
         log.info("Add a fan");
-        User user = fanService.add(FanService.Model.builder()
-                .userId(userId)
-                .token(token)
-                .build());
+        User user = fanService.add(userId);
 
         return ResponseEntity.ok(user);
     }
@@ -81,18 +69,11 @@ public class FanController {
      */
     @GetMapping(value = "/fan/{userId}/posts",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getFanPosts(
-            @PathVariable("userId")
-                    long userId,
-            @RequestHeader("session-token")
-                    String token) throws ApplicationException {
+    public ResponseEntity<String> getFanPosts(@PathVariable("userId") long userId) throws ApplicationException {
         log.info("Get posts from a fan");
 
         GetPostsResponse response = GetPostsResponse.builder()
-                .posts(fanService.getPostsFan(FanService.Model.builder()
-                        .userId(userId)
-                        .token(token)
-                        .build()))
+                .posts(fanService.getPostsFan(userId))
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));

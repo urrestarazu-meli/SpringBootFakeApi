@@ -1,7 +1,6 @@
 package com.photogram.fake.api.modules.controllers;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,14 +21,14 @@ class FanControllerTest {
 
     @Test
     void getFans() {
-        when(fanService.get(any()))
+        when(fanService.get())
                 .thenReturn(Collections.singletonList(User.builder()
                         .id(999L)
                         .build()));
 
         FanController fanController = new FanController(fanService, gson);
 
-        ResponseEntity<String> response = fanController.getFans("token");
+        ResponseEntity<String> response = fanController.getFans();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("{\"following\":[{\"id\":999}]}", response.getBody());
     }
@@ -37,7 +36,7 @@ class FanControllerTest {
     @Test
     void addFan() {
         FanController fanController = new FanController(fanService, gson);
-        ResponseEntity<User> response = fanController.addFan(999,"token");
+        ResponseEntity<User> response = fanController.addFan(999);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
