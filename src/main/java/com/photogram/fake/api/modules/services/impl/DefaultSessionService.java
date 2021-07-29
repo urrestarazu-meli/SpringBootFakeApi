@@ -2,6 +2,7 @@ package com.photogram.fake.api.modules.services.impl;
 
 import com.photogram.fake.api.modules.repositories.SessionRepository;
 import com.photogram.fake.api.modules.services.SessionService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ Deafult session service
  *
  */
 @Service
+@AllArgsConstructor
 public class DefaultSessionService implements SessionService {
     @Autowired
     private SessionRepository sessionRepository;

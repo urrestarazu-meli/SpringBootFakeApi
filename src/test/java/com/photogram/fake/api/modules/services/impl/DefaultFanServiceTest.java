@@ -87,4 +87,46 @@ class DefaultFanServiceTest {
         assertEquals(1, result.size());
         assertEquals(userId, result.get(0).getUserId());
     }
+
+    @Test
+    void report_json() {
+        Long userId = 999L;
+        User user = User.builder()
+                .id(userId)
+                .name("James Brown")
+                .email("feel@good.com")
+                .build();
+        when(addFan.add(any()))
+                .thenReturn(user);
+
+        when(getMyFans.get())
+                .thenReturn(Collections.singletonList(user));
+
+        DefaultFanService fanService = new DefaultFanService(getMyFans, getsPostsFan, addFan, validateSession);
+        fanService.report(FanService.Model.builder()
+                .format("json")
+                .token("token")
+                .build());
+    }
+
+    @Test
+    void report_xml() {
+        Long userId = 999L;
+        User user = User.builder()
+                .id(userId)
+                .name("James Brown")
+                .email("feel@good.com")
+                .build();
+        when(addFan.add(any()))
+                .thenReturn(user);
+
+        when(getMyFans.get())
+                .thenReturn(Collections.singletonList(user));
+
+        DefaultFanService fanService = new DefaultFanService(getMyFans, getsPostsFan, addFan, validateSession);
+        fanService.report(FanService.Model.builder()
+                .format("xml")
+                .token("token")
+                .build());
+    }
 }
