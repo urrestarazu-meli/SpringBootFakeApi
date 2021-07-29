@@ -7,10 +7,12 @@ import lombok.Getter;
 
 @Repository
 public class SessionRepository {
+    private final long userId = 1982L;
+
     @Getter
     private String token;
 
-    /**
+    /*
      Simulates the obtaining of user untoken
      *
      * @param userId a user id
@@ -37,7 +39,7 @@ public class SessionRepository {
      */
     public User getUser(String token) {
         return User.builder()
-                .id(1982L)
+                .id(userId)
                 .email("gatman@gmail.com")
                 .name("Bruce Wayne")
                 .username("batman")
