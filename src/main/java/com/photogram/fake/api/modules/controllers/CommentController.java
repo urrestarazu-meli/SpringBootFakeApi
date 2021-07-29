@@ -5,6 +5,8 @@ import com.photogram.fake.api.modules.entities.domain.Comment;
 import com.photogram.fake.api.modules.entities.responses.UpdateCommentResponse;
 import com.photogram.fake.api.modules.exceptions.ApplicationException;
 import com.photogram.fake.api.modules.services.CommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequestMapping("/photogram/api/v1")
 @AllArgsConstructor
+@Slf4j
+@Tag(name = "comment", description = "APIs related to comments")
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -37,6 +40,7 @@ public class CommentController {
      */
     @DeleteMapping(value = "/comment/{commentId}",
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Delete a comment")
     public ResponseEntity<String> deleteComment(
             @PathVariable("commentId")
                     long commentId,
@@ -65,6 +69,7 @@ public class CommentController {
     @PutMapping(value = "/comment/{commentId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Update a comment")
     public ResponseEntity<String> updateComment(
             @PathVariable("commentId")
                     long commentId,

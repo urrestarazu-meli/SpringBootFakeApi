@@ -61,7 +61,6 @@ public class CommentsRepository {
         try {
             String url = "https://jsonplaceholder.typicode.com/comments";
 
-
             String requestJson = gson.toJson(Comment.builder()
                     .postId(postId)
                     .name("peter")

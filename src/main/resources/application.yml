@@ -1,9 +1,17 @@
 server:
-  application:
-    name: SpringBootFakeApi
+  port: 8080
+  servlet:
+    application-display-name: SpringBootFakeApi
+
+spring:
+  main:
+    banner-mode: off
+
+
+logging:
+  level:
+    root: info
 
 springdoc:
-  api-docs:
-    enabled: true
   swagger-ui:
-    enabled: true
+    path: /swagger-ui.html

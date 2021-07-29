@@ -6,6 +6,8 @@ import com.photogram.fake.api.modules.entities.responses.GetFollowersResponse;
 import com.photogram.fake.api.modules.entities.responses.GetPostsResponse;
 import com.photogram.fake.api.modules.exceptions.ApplicationException;
 import com.photogram.fake.api.modules.services.FanService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/photogram/api/v1")
+@Tag(name = "fan", description = "APIs related to fans")
 public class FanController {
     @Autowired
     private FanService fanService;
@@ -37,6 +40,7 @@ public class FanController {
      */
     @GetMapping(value = "/fan",
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Gets my fans")
     public ResponseEntity<String> getFans(
             @RequestHeader("session-token")
                     String token) throws ApplicationException {
@@ -59,6 +63,7 @@ public class FanController {
      * @throws ApplicationException a application exception
      */
     @PutMapping("/fan/{userId}")
+    @Operation(summary = "Adds a fanatic")
     public ResponseEntity<User> addFan(
             @PathVariable("userId")
                     long userId,
@@ -81,6 +86,7 @@ public class FanController {
      */
     @GetMapping(value = "/fan/{userId}/posts",
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Gets posts from a fan")
     public ResponseEntity<String> getFanPosts(
             @PathVariable("userId")
                     long userId,
