@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/photogram/api/v1")
-@Tag(name = "fan", description = "APIs related to fans")
+@Tag(name = "fan",
+        description = "APIs related to fans")
 public class FanController {
     @Autowired
     private FanService fanService;
@@ -53,6 +54,32 @@ public class FanController {
                 .build();
 
         return ResponseEntity.ok(gson.toJson(response));
+    }
+
+    /*
+    Generates a fan's report
+
+     * @param userId user id to add to my fans
+     * @return user the added user
+     * @throws ApplicationException a application exception
+     */
+    @GetMapping("/fan/report/{format}")
+    @Operation(summary = "Adds a fanatic")
+    public ResponseEntity<String> generateReport(
+            @PathVariable("format")
+                    String format,
+            @RequestHeader("session-token")
+                    String token) throws ApplicationException {
+        log.info("Generating a fan's report");
+
+        fanService.report(FanService.Model.builder()
+                .format(format)
+                .token(token)
+                .build());
+
+        log.info("Report generated.");
+
+        return ResponseEntity.ok("{}");
     }
 
     /*

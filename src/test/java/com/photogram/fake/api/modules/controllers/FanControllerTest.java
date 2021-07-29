@@ -41,4 +41,12 @@ class FanControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+
+    @Test
+    void generateReport(){
+        FanController fanController = new FanController(fanService, gson);
+        ResponseEntity<String> response =fanController.generateReport("format","token");
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 }
