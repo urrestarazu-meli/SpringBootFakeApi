@@ -12,7 +12,7 @@ public interface FanService {
     /*
      Add a fan
 
-     * @param userId user id to add
+     * @param fan service's model
      * @return the user added
      */
     User add(Model model);
@@ -20,21 +20,31 @@ public interface FanService {
     /*
      Get my fans
 
-      * @return
+     * @param model fan service's model
+      * @return my fans
       */
     List<User> get(Model model);
 
     /*
      Gets posts from a fan
-     * @param userId a user id
+     * @param model fan service's model
      * @return the posts
      */
     List<Post> getPostsFan(Model model);
+
+    /*
+    Generates a Fan's report
+
+     *
+     * @param model fan service's model
+     */
+    void report(Model model);
 
     @Builder
     @Getter
     class Model {
         private final long userId;
         private final String token;
+        private final String format;
     }
 }
