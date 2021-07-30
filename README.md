@@ -13,6 +13,8 @@ This API simulates having a list of fans, from which you can get their posts and
   * JUnit (https://junit.org/junit5/)
   * Checkstyle (https://checkstyle.sourceforge.io/)
   * Clean architecture (https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+  * swagger: https://swagger.io/tools/swagger-ui/
+  * jackson: https://github.com/FasterXML/jackson-dataformat-xml
 
 ## Usage
 
@@ -32,22 +34,22 @@ http://localhost:8080/swagger-ui.html
 used to validate that the API is up
 
 ---
-* GET localhost:8080/photogram/api/v1/user/1/session
+* GET localhost:8080/photogram/api/v1/user/{userId}/session
 
 Gets a token session
 
 ---
-* PUT localhost:8080/photogram/api/v1/fan/1
+* PUT localhost:8080/photogram/api/v1/fan/{fanId}
 
 Adds a fanatic
 
 ---
-* GET localhost:8080/photogram/api/v1/fan/3/posts
+* GET localhost:8080/photogram/api/v1/fan/{fanId}/posts
 
 Gets posts from a fan
 
 ---
-* POST localhost:8080/photogram/api/v1/post/1/comment
+* POST localhost:8080/photogram/api/v1/post/{postId}/comment
 
 Body
 ```
@@ -59,7 +61,7 @@ Body
 comment on a posts
 
 ---
-* GET localhost:8080/photogram/api/v1/post/22/comments
+* GET localhost:8080/photogram/api/v1/post/{postId}/comments
 
 List all comments of a post
 
@@ -79,11 +81,15 @@ List all comments of a post
 Update a comment
 
 ---
-* DEL localhost:8080/photogram/api/v1/comment/1
+* DEL localhost:8080/photogram/api/v1/comment/{commentId}
 
 Delete a comment
 
 ---
+
+* GET localhost:8080/photogram/api/v1/fan/report/{format}
+
+Generate a JSON or XML fan's report 
 
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2974931-aeff10f6-2f9a-415f-afb5-d4f0f9576dc1?action=collection%2Ffork&collection-url=entityId%3D2974931-aeff10f6-2f9a-415f-afb5-d4f0f9576dc1%26entityType%3Dcollection%26workspaceId%3Dec119bf9-e9ab-4c22-820b-6f07a5cc3165#?env%5Bfake%20api%5D=W3sia2V5IjoiZmFrZS1zZXNzaW9uLXRva2VuIiwidmFsdWUiOiIiLCJlbmFibGVkIjp0cnVlfV0=)
