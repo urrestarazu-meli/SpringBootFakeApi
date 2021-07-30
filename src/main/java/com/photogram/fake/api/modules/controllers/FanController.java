@@ -64,7 +64,7 @@ public class FanController {
      * @throws ApplicationException a application exception
      */
     @GetMapping("/fan/report/{format}")
-    @Operation(summary = "Adds a fanatic")
+    @Operation(summary = "Generates a fan's report")
     public ResponseEntity<String> generateReport(
             @PathVariable("format")
                     String format,

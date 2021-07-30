@@ -99,9 +99,10 @@ public class DefaultFanService implements FanService {
             XmlMapper xmlMapper = new XmlMapper();
 
             String xmlString = xmlMapper.writeValueAsString(fans);
-            log.info(xmlString);
 
             writer.write(xmlString);
+            log.info("File: " + REPORTS_FANATICS_XML);
+            log.info(xmlString);
         } catch (IOException exc) {
             throw new BusinessException("XML report could not be generated.", exc);
         }
@@ -118,6 +119,7 @@ public class DefaultFanService implements FanService {
                     .create();
 
             gson.toJson(fans, writer);
+            log.info("File: " + REPORTS_FANATICS_JSON);
         } catch (IOException exc) {
             throw new BusinessException("JSON report could not be generated.", exc);
         }
