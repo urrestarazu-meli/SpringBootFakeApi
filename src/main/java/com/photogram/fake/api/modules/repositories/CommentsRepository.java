@@ -6,11 +6,14 @@ import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.photogram.fake.api.modules.entities.domain.Comment;
+import com.photogram.fake.api.modules.entities.domain.User;
 import com.photogram.fake.api.modules.exceptions.RepositoryException;
 import com.photogram.fake.api.modules.stereotypes.Repository;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -63,17 +66,18 @@ public class CommentsRepository {
      * @param postId a post id
      * @return a new comment
      * @comment a comment
+     * @user a user
      * @throws RepositoryException a repository exception
      */
     @HystrixCommand
-    public Comment create(long postId, String comment) throws RepositoryException {
+    public Comment create(long postId, String comment, User user) throws RepositoryException {
         try {
             String url = "https://jsonplaceholder.typicode.com/comments";
 
             String requestJson = gson.toJson(Comment.builder()
                     .postId(postId)
-                    .name("peter")
-                    .email("peter@email.com")
+                    .name(user.getName())
+                    .email(user.getEmail())
                     .body(comment)
                     .build());
 

@@ -28,12 +28,16 @@ class DefaultCreateCommentPostTest {
                 .body(newComment)
                 .build();
 
+        User user = User.builder()
+                .name("Peter")
+                .email("peter@mail.com")
+                .build();
 
-        when(commentsRepository.create(postId, newComment))
+        when(commentsRepository.create(postId, newComment, user))
                 .thenReturn(comment);
 
         when(sessionRepository.getUser(anyString()))
-                .thenReturn(User.builder().build());
+                .thenReturn(user);
 
         DefaultCreateCommentPost createCommentPost = new DefaultCreateCommentPost(commentsRepository, sessionRepository);
         Comment result = createCommentPost.create(CreateCommentPost.Model.builder()
