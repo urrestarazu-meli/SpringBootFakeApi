@@ -87,7 +87,6 @@ public class CommentController {
                 .name(comment.getName())
                 .postId(comment.getPostId())
                 .id(commentId)
-                .token(token)
                 .build();
 
         UpdateCommentResponse response = UpdateCommentResponse.builder()
