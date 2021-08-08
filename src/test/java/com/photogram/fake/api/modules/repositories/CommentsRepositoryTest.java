@@ -9,9 +9,12 @@ import static org.mockito.Mockito.when;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.photogram.fake.api.modules.entities.domain.Comment;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.photogram.fake.api.modules.entities.domain.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.http.HttpEntity;
@@ -59,19 +62,24 @@ class CommentsRepositoryTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<String> entity = new HttpEntity<>("{\"postId\":999,\"id\":0,\"name\":\"peter\",\"email\":\"peter@email.com\",\"body\":\"Hello!\"}", headers);
+        HttpEntity<String> entity = new HttpEntity<>("{\"postId\":999,\"id\":0,\"name\":\"Peter\",\"email\":\"peter@mail.com\",\"body\":\"Hello!\"}", headers);
 
         when(restTemplate.postForObject("https://jsonplaceholder.typicode.com/comments", entity, String.class))
                 .thenReturn("{\n" +
                         "  \"postId\": 1,\n" +
                         "  \"id\": 501,\n" +
-                        "  \"name\": \"peter\",\n" +
-                        "  \"email\": \"peter@email.com\",\n" +
+                        "  \"name\": \"Peter\",\n" +
+                        "  \"email\": \"peter@mail.com\",\n" +
                         "  \"body\": \"some comment\"\n" +
                         "}");
 
+        User user = User.builder()
+                .name("Peter")
+                .email("peter@mail.com")
+                .build();
+
         CommentsRepository commentsRepository = new CommentsRepository(restTemplate, gson);
-        Comment comment = commentsRepository.create(999, "Hello!");
+        Comment comment = commentsRepository.create(999, "Hello!", user);
 
         assertEquals(501, comment.getId());
     }
