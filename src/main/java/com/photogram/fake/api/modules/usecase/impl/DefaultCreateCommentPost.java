@@ -22,6 +22,6 @@ public class DefaultCreateCommentPost implements CreateCommentPost {
     public Comment create(Model model) {
         User user = sessionRepository.getUser(model.getToken());
 
-        return commentsRepository.create(model.getPostId(), model.getNewComment());
+        return commentsRepository.create(model.getPostId(), model.getNewComment(), user);
     }
 }
